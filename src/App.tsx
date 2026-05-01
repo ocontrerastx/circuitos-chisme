@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PodcastCoverArt from "./assets/podcast_cover_art.png";
+import EpisodeCoverArt from "./assets/episode_cover_art.png";
 
 const PODCAST_LINKS = {
   spotify:
@@ -299,17 +300,14 @@ const App: React.FC = () => {
             <div className="relative">
               <div className="aspect-square bg-[#25252c] border-8 border-black shadow-[20px_20px_0px_0px_#00f4fe] p-8 flex flex-col justify-between group overflow-hidden">
                 <img
-                  className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay group-hover:scale-110 transition-transform duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAduJJY7S2Wewjs5jP92FS5w4jtU_9sS2kUlMPENcYfppUutUeLFpDd8VDcaUxaffGQjf1GHApANg8CwQtGu1qMWmq9Q7cchidYxaWw32YVhqD10JVDXRyOtojZJuvkaYZIGalzws9GkXbnu31o2IPhehA13nT9IqheXOUjctQNuqE9Ro1cq3jz0fTvRUb8dDYuoGbkrT__Jst0-nhnogIvmS0MoluPc8MNYhDcf32etq8Zk4g28gLKM7o2ogLUYdFLZnyIlXe3-6Rh"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  src={EpisodeCoverArt}
                   alt="Episode thumbnail"
                 />
                 <div className="relative z-10">
                   <span className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
-                    NEW EPISODE
+                    LATEST EPISODE
                   </span>
-                  <h3 className="font-headline font-black text-5xl md:text-7xl uppercase text-black leading-none mt-4">
-                    Season 2: Kickoff & Driver Rumors
-                  </h3>
                 </div>
                 <div className="relative z-10 flex items-center gap-6">
                   <a
@@ -323,17 +321,9 @@ const App: React.FC = () => {
                     </span>
                   </a>
                   <div>
-                    <p className="font-headline text-black font-bold">
+                    <p className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
                       48 MINUTES OF DRAMA
                     </p>
-                    <div className="flex gap-4 mt-2">
-                      <span className="material-symbols-outlined text-black">
-                        podcasts
-                      </span>
-                      <span className="material-symbols-outlined text-black">
-                        graphic_eq
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>
