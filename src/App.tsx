@@ -1,8 +1,34 @@
 import React, { useEffect, useState } from "react";
-import PodcastCoverArt from "./assets/podcast_cover_art.png";
-import EpisodeCoverArt from "./assets/episode_cover_art.png";
 
-const PODCAST_LINKS = {
+// --- Interfaces for TypeScript Strict Mode ---
+interface PodcastLinks {
+  spotify: string;
+  apple: string;
+  instagram: string;
+  tiktok: string;
+}
+
+interface RaceData {
+  name: string;
+  location: string;
+  round: number;
+  date: string;
+  isLive: boolean;
+  circuitImage: string;
+}
+
+interface PodcastEpisode {
+  trackId: number;
+  trackName: string;
+  trackTimeMillis: number;
+  description: string;
+  releaseDate: string;
+  artworkUrl600: string;
+  previewUrl: string;
+  collectionViewUrl: string;
+}
+
+const PODCAST_LINKS: PodcastLinks = {
   spotify:
     "https://open.spotify.com/show/5kwWL1UZ3CJOz60IOARv6k?si=84a2d71187574e05",
   apple: "https://podcasts.apple.com/us/podcast/circuitosychisme/id1890278405",
@@ -13,26 +39,25 @@ const PODCAST_LINKS = {
 const APPLE_ID = "1890278405";
 
 // Helper to format duration from ms to "MM mins"
-const formatDuration = (ms) => {
-  if (!ms) return "0 mins";
+const formatDuration = (ms: number | undefined): string => {
+  if (!ms) return "0 MINUTES OF DRAMA";
   const mins = Math.floor(ms / 60000);
   return `${mins} MINUTES OF DRAMA`;
 };
 
 // Helper to strip HTML tags
-const stripHtml = (html) => {
+const stripHtml = (html: string | undefined): string => {
   if (!html) return "";
   return html.replace(/<[^>]*>?/gm, "");
 };
 
-const App = () => {
-  const [view, setView] = useState("home"); // 'home' or 'episodes'
-  const [nextRace, setNextRace] = useState(null);
-  const [episodes, setEpisodes] = useState([]);
-  const [loading, setLoading] = useState(true);
+const App: React.FC = () => {
+  const [view, setView] = useState<"home" | "episodes">("home");
+  const [nextRace, setNextRace] = useState<RaceData | null>(null);
+  const [episodes, setEpisodes] = useState<PodcastEpisode[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Ensure Dark Mode is applied
     document.documentElement.classList.add("dark");
 
     // Injecting Tailwind CDN and Fonts
@@ -49,11 +74,11 @@ const App = () => {
     ];
 
     assets.forEach((asset) => {
-      if (asset.type === "script") {
+      if (asset.type === "script" && asset.src) {
         const s = document.createElement("script");
         s.src = asset.src;
         document.head.appendChild(s);
-      } else {
+      } else if (asset.type === "link" && asset.href) {
         const l = document.createElement("link");
         l.rel = "stylesheet";
         l.href = asset.href;
@@ -61,7 +86,6 @@ const App = () => {
       }
     });
 
-    // Custom Tailwind Config injection
     const configScript = document.createElement("script");
     configScript.innerHTML = `
       tailwind.config = {
@@ -86,12 +110,11 @@ const App = () => {
     `;
     document.head.appendChild(configScript);
 
-    // 1. Fetch Live Race Intel from OpenF1
+    // Fetch Live Race Intel
     const fetchRaceIntel = async () => {
       try {
-        const currentYear = new Date().getFullYear();
         const response = await fetch(
-          `https://api.openf1.org/v1/meetings?year=${currentYear}`,
+          `https://api.openf1.org/v1/meetings?year=${new Date().getFullYear()}`,
         );
         const meetings = await response.json();
 
@@ -105,7 +128,7 @@ const App = () => {
           const currentMeetingIndex = sortedMeetings.findIndex((m) => {
             const startDate = new Date(m.date_start);
             const raceEndBuffer = new Date(startDate);
-            raceEndBuffer.setDate(startDate.getDate() + 3);
+            raceEndBuffer.setDate(startDate.getDate() + 4);
             return now <= raceEndBuffer;
           });
 
@@ -133,7 +156,8 @@ const App = () => {
               isLive:
                 now >= startDate &&
                 now <= new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000),
-              circuitImage: meeting.circuit_image,
+              circuitImage:
+                "https://images.unsplash.com/photo-1547547743-162e07172087?q=80&w=2000&auto=format&fit=crop",
             });
           }
         }
@@ -142,16 +166,15 @@ const App = () => {
       }
     };
 
-    // 2. Fetch Podcast Data (JSONP implementation to avoid CORS)
     const fetchPodcasts = () => {
       const callbackName =
         "itunesCallback_" + Math.floor(Math.random() * 1000000);
-      window[callbackName] = (data) => {
+      (window as any)[callbackName] = (data: any) => {
         if (data.results && data.results.length > 1) {
           setEpisodes(data.results.slice(1));
         }
         setLoading(false);
-        delete window[callbackName];
+        delete (window as any)[callbackName];
         document.getElementById(callbackName)?.remove();
       };
 
@@ -180,7 +203,6 @@ const App = () => {
         }
       `}</style>
 
-      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 flex justify-between items-center py-16 px-6 md:px-10 bg-slate-950/80 backdrop-blur-xl h-20 -rotate-1 origin-left border-b-4 border-cyan-400 shadow-[8px_8px_0px_0px_rgba(255,137,171,0.3)]">
         <div
           onClick={() => setView("home")}
@@ -189,8 +211,6 @@ const App = () => {
           Circuitos y Chisme
         </div>
         <div className="hidden lg:flex gap-8 items-center font-headline uppercase tracking-tighter text-slate-100">
-          {/* Episodes link commented out for now */}
-          {/* <button onClick={() => setView('episodes')} className="hover:text-pink-400">Episodes</button> */}
           <a
             href={PODCAST_LINKS.spotify}
             target="_blank"
@@ -218,7 +238,6 @@ const App = () => {
       <main className="pt-32">
         {view === "home" ? (
           <>
-            {/* Hero Section */}
             <section className="relative min-h-[80vh] md:min-h-[921px] flex flex-col items-center justify-center px-6 overflow-hidden">
               <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
                 <div className="absolute top-10 -left-20 w-96 h-96 bg-[#ff89ab] rounded-full blur-[120px]"></div>
@@ -247,7 +266,7 @@ const App = () => {
                     <img
                       alt="Hosts"
                       className="w-full h-[400px] md:h-[600px] object-cover filter contrast-125"
-                      src={PodcastCoverArt}
+                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/71/6a/52/716a52f4-716b-1936-e087-f14d8479e00b/mza_4833214539150036616.jpg/1200x1200bb.jpg"
                     />
                     <div className="absolute -bottom-6 -left-6 bg-[#00f4fe] text-[#0e0e13] font-headline font-black p-4 text-xl md:text-2xl -rotate-6 border-2 border-[#0e0e13] shadow-lg">
                       New Episodes Weekly!
@@ -257,7 +276,6 @@ const App = () => {
               </div>
             </section>
 
-            {/* Live Intel / Race Section - Restored correct font handling */}
             <section className="py-24 px-6 relative">
               <div className="max-w-7xl mx-auto">
                 <div className="bg-[#25252c] border-t-8 border-l-8 border-[#00f4fe] p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row gap-12 items-center">
@@ -316,7 +334,6 @@ const App = () => {
               </div>
             </section>
 
-            {/* Dynamic Latest Episode Section */}
             <section className="py-24 bg-[#e30071] relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-8 bg-[#0e0e13] -translate-y-1/2 rotate-1"></div>
               <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -324,7 +341,10 @@ const App = () => {
                   <div className="aspect-square bg-[#25252c] border-8 border-black shadow-[20px_20px_0px_0px_#00f4fe] p-8 flex flex-col justify-between overflow-hidden">
                     <img
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      src={EpisodeCoverArt}
+                      src={
+                        latestEpisode?.artworkUrl600 ||
+                        "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/71/6a/52/716a52f4-716b-1936-e087-f14d8479e00b/mza_4833214539150036616.jpg/600x600bb.jpg"
+                      }
                       alt="Latest Episode"
                     />
                     <div className="relative z-10">
@@ -333,7 +353,7 @@ const App = () => {
                       </span>
                     </div>
                     <div className="relative z-10 flex items-center gap-6">
-                      {/* <a
+                      <a
                         href={latestEpisode?.previewUrl}
                         target="_blank"
                         className="w-20 h-20 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl"
@@ -341,7 +361,7 @@ const App = () => {
                         <span className="material-symbols-outlined text-4xl text-[#ff89ab]">
                           play_arrow
                         </span>
-                      </a> */}
+                      </a>
                       <span className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
                         {formatDuration(latestEpisode?.trackTimeMillis)}
                       </span>
@@ -381,7 +401,6 @@ const App = () => {
               </div>
             </section>
 
-            {/* Social Grid */}
             <section className="py-24 px-6 bg-[#0e0e13]">
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -420,8 +439,12 @@ const App = () => {
             </section>
           </>
         ) : (
-          /* Episodes Page View - Commented out but preserved */
           <div className="flex flex-col items-center justify-center py-40">
+            {loading && (
+              <p className="text-[#00f4fe] animate-pulse">
+                Scanning the paddock...
+              </p>
+            )}
             <p className="text-[#acaab1] font-headline">
               The Paddock Archive is currently private.
             </p>
