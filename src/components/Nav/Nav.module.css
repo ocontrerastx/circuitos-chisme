@@ -1,0 +1,103 @@
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 1.5rem;
+  background-color: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(24px);
+  height: 5rem;
+  transform: rotate(-1deg);
+  transform-origin: left;
+  border-bottom: 4px solid #22d3ee;
+  box-shadow: 8px 8px 0px 0px rgba(255, 137, 171, 0.3);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.logo {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  color: #ec4899;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  cursor: pointer;
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+}
+
+@media (min-width: 768px) {
+  .logo {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+.logo:hover {
+  transform: skewX(12deg);
+}
+
+.links {
+  display: none;
+  gap: 2rem;
+  align-items: center;
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  color: #f1f5f9;
+}
+
+@media (min-width: 1024px) {
+  .links {
+    display: flex;
+  }
+}
+
+.link {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  display: inline-block;
+}
+
+.link:hover {
+  color: #f472b6;
+  transform: rotate(-2deg);
+}
+
+.subscribe {
+  background-color: var(--primary);
+  color: black;
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  font-weight: 900;
+  padding: 0.5rem 1rem;
+  border: 2px solid black;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .subscribe {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.subscribe:hover {
+  transform: translateY(4px) translateX(4px);
+  box-shadow: none;
+}

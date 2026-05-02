@@ -1,0 +1,159 @@
+.section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: var(--bg-color);
+}
+
+.container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.tiktokCard {
+  background-color: var(--secondary);
+  padding: 2.5rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: rotate(-1deg);
+  position: relative;
+  cursor: pointer;
+  box-shadow: 15px 15px 0px 0px var(--primary);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+@media (min-width: 768px) {
+  .tiktokCard {
+    grid-column: span 3 / span 3;
+  }
+}
+
+.tiktokCard:hover {
+  transform: rotate(0deg);
+}
+
+.tiktokIcon {
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  font-size: 6rem;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.2);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.tiktokCard:hover .tiktokIcon {
+  transform: scale(1.1);
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.cardTitle {
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  font-weight: 900;
+  font-size: 3.75rem;
+  color: var(--bg-color);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .cardTitle {
+    font-size: 6rem;
+  }
+}
+
+.cardDesc {
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.igCard {
+  background-color: var(--primary);
+  padding: 2.5rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform: rotate(2deg);
+  position: relative;
+  cursor: pointer;
+  box-shadow: 15px 15px 0px 0px var(--secondary);
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+@media (min-width: 768px) {
+  .igCard {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.igCard:hover {
+  transform: rotate(0deg);
+}
+
+.igIcon {
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  font-size: 3.75rem;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.2);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.igCard:hover .igIcon {
+  transform: scale(1.1);
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.cardTitleSmall {
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  font-weight: 900;
+  font-size: 2.25rem;
+  color: var(--bg-color);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .cardTitleSmall {
+    font-size: 3.75rem;
+  }
+}
+
+.cardDescSmall {
+  font-family: var(--font-headline, 'Space Grotesk', sans-serif);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
