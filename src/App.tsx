@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import EpisodeCoverArt from "./assets/episode_cover_art.png";
+import PodcastCoverArt from "./assets/podcast_cover_art.png";
 
 // --- Interfaces for TypeScript Strict Mode ---
 interface PodcastLinks {
@@ -156,8 +158,7 @@ const App: React.FC = () => {
               isLive:
                 now >= startDate &&
                 now <= new Date(startDate.getTime() + 3 * 24 * 60 * 60 * 1000),
-              circuitImage:
-                "https://images.unsplash.com/photo-1547547743-162e07172087?q=80&w=2000&auto=format&fit=crop",
+              circuitImage: meeting.circuit_image,
             });
           }
         }
@@ -266,7 +267,7 @@ const App: React.FC = () => {
                     <img
                       alt="Hosts"
                       className="w-full h-[400px] md:h-[600px] object-cover filter contrast-125"
-                      src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/71/6a/52/716a52f4-716b-1936-e087-f14d8479e00b/mza_4833214539150036616.jpg/1200x1200bb.jpg"
+                      src={PodcastCoverArt}
                     />
                     <div className="absolute -bottom-6 -left-6 bg-[#00f4fe] text-[#0e0e13] font-headline font-black p-4 text-xl md:text-2xl -rotate-6 border-2 border-[#0e0e13] shadow-lg">
                       New Episodes Weekly!
@@ -341,10 +342,7 @@ const App: React.FC = () => {
                   <div className="aspect-square bg-[#25252c] border-8 border-black shadow-[20px_20px_0px_0px_#00f4fe] p-8 flex flex-col justify-between overflow-hidden">
                     <img
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      src={
-                        latestEpisode?.artworkUrl600 ||
-                        "https://is1-ssl.mzstatic.com/image/thumb/Podcasts211/v4/71/6a/52/716a52f4-716b-1936-e087-f14d8479e00b/mza_4833214539150036616.jpg/600x600bb.jpg"
-                      }
+                      src={EpisodeCoverArt}
                       alt="Latest Episode"
                     />
                     <div className="relative z-10">
