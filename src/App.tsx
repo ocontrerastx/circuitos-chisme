@@ -62,31 +62,10 @@ const App: React.FC = () => {
   useEffect(() => {
     document.documentElement.classList.add("dark");
 
-    // Injecting Tailwind CDN and Fonts
-    const assets = [
-      { type: "script", src: "https://cdn.tailwindcss.com" },
-      {
-        type: "link",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap",
-      },
-      {
-        type: "link",
-        href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap",
-      },
-    ];
-
-    assets.forEach((asset) => {
-      if (asset.type === "script" && asset.src) {
-        const s = document.createElement("script");
-        s.src = asset.src;
-        document.head.appendChild(s);
-      } else if (asset.type === "link" && asset.href) {
-        const l = document.createElement("link");
-        l.rel = "stylesheet";
-        l.href = asset.href;
-        document.head.appendChild(l);
-      }
-    });
+    // Injecting Tailwind CDN
+    const s = document.createElement("script");
+    s.src = "https://cdn.tailwindcss.com";
+    document.head.appendChild(s);
 
     const configScript = document.createElement("script");
     configScript.innerHTML = `
@@ -268,6 +247,8 @@ const App: React.FC = () => {
                       alt="Hosts"
                       className="w-full h-[400px] md:h-[600px] object-cover filter contrast-125"
                       src={PodcastCoverArt}
+                      fetchPriority="high"
+                      loading="eager"
                     />
                     <div className="absolute -bottom-6 -left-6 bg-[#00f4fe] text-[#0e0e13] font-headline font-black p-4 text-xl md:text-2xl -rotate-6 border-2 border-[#0e0e13] shadow-lg">
                       New Episodes Weekly!
@@ -322,6 +303,7 @@ const App: React.FC = () => {
                       alt={nextRace?.name || "Race Circuit"}
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,244,254,0.3)] transition-all duration-500 hover:scale-110"
                       src={nextRace?.circuitImage}
+                      loading="lazy"
                     />
                     <div className="absolute top-0 right-0 p-4 font-headline text-[#00f4fe] opacity-50 text-[10px] text-right">
                       STATUS: {nextRace?.isLive ? "LIVE" : "IDLE"}
@@ -344,6 +326,7 @@ const App: React.FC = () => {
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       src={EpisodeCoverArt}
                       alt="Latest Episode"
+                      loading="lazy"
                     />
                     <div className="relative z-10">
                       <span className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
