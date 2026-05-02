@@ -192,21 +192,21 @@ const App: React.FC = () => {
       <main className="pt-32">
         {view === "home" ? (
           <>
-            <section className="relative min-h-[80vh] md:min-h-[921px] flex flex-col items-center justify-center px-6 overflow-hidden">
+            <section className="relative min-h-[80vh] md:min-h-[921px] flex flex-col items-center justify-center px-6 py-24 overflow-hidden">
               <div className="absolute inset-0 z-0 pointer-events-none">
                 <div className="absolute top-10 -left-20 w-96 h-96 bg-[#ff89ab]/20 rounded-full blur-[120px]"></div>
                 <div className="absolute bottom-20 -right-20 w-80 h-80 bg-[#00f4fe]/20 rounded-full blur-[100px]"></div>
               </div>
               <div className="relative z-10 w-full max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-4">
-                <div className="md:col-span-7 flex flex-col justify-center">
+                <div className="md:col-span-7 flex flex-col justify-center relative z-20">
                   <h1 className="font-headline font-black italic leading-[0.8] tracking-tighter uppercase mb-4">
                     <span className="block text-6xl md:text-[12rem] -rotate-2 text-[#ff89ab] drop-shadow-[10px_10px_0px_rgba(0,244,254,0.5)]">
                       LIGHTS
                     </span>
-                    <span className="block text-5xl md:text-[10rem] rotate-1 text-[#f8f5fd] bg-[#00696e] w-fit px-4 ml-4 md:ml-12 tape-edge">
+                    <span className="block text-5xl md:text-[8rem] rotate-1 text-[#f8f5fd] bg-[#00696e] w-fit px-4 ml-4 md:ml-12 tape-edge">
                       OUT &
                     </span>
-                    <span className="block text-7xl md:text-[14rem] -rotate-3 text-[#00f4fe] drop-shadow-[12px_12px_0px_rgba(255,137,171,0.5)]">
+                    <span className="block text-7xl md:text-[12rem] -rotate-3 text-[#00f4fe] drop-shadow-[12px_12px_0px_rgba(255,137,171,0.5)]">
                       CHISME
                     </span>
                     <span className="block text-4xl md:text-8xl self-end font-body italic lowercase text-[#c47fff]">
@@ -236,8 +236,8 @@ const App: React.FC = () => {
 
             <section className="py-24 px-6 relative">
               <div className="max-w-7xl mx-auto">
-                <div className="bg-[#25252c] border-t-8 border-l-8 border-[#00f4fe] p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row gap-12 items-center">
-                  <div className="flex-1 space-y-6">
+                <div className="bg-[#25252c] border-t-8 border-l-8 border-[#00f4fe] p-8 md:p-16 relative overflow-hidden flex flex-col md:flex-row gap-8 lg:gap-12 items-center">
+                  <div className="flex-1 space-y-6 min-w-0">
                     <div className="flex gap-2 items-center">
                       <span
                         className={`font-headline font-bold px-3 py-1 text-sm uppercase ${nextRace?.isLive ? "bg-green-500 text-black" : "bg-[#ff6e84] text-[#490013]"}`}
@@ -248,7 +248,7 @@ const App: React.FC = () => {
                       </span>
                       <div className="h-1 flex-1 bg-[#acaab1]/20"></div>
                     </div>
-                    <h2 className="font-headline font-black text-5xl md:text-9xl uppercase tracking-tighter leading-none italic text-[#f8f5fd]">
+                    <h2 className="font-headline font-black text-5xl md:text-6xl lg:text-8xl xl:text-9xl uppercase tracking-tighter leading-none italic text-[#f8f5fd] break-words">
                       {nextRace?.isLive ? "CURRENT:" : "DESTINATION:"}
                       <br />
                       <span className="text-[#00f4fe]">
@@ -274,14 +274,14 @@ const App: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full md:w-1/2 relative h-[300px] md:h-[400px] flex items-center justify-center bg-black/20">
+                  <div className="w-full md:w-2/5 lg:w-1/2 shrink-0 relative h-[300px] md:h-[400px] flex items-center justify-center bg-black/20 p-4 md:p-8">
                     <img
                       alt={
                         nextRace?.name
                           ? `Circuit map of ${nextRace.name}`
                           : "Formula 1 Race Circuit Map"
                       }
-                      className="max-w-full max-h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,244,254,0.3)] transition-all duration-500 hover:scale-110"
+                      className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,244,254,0.3)] transition-all duration-500 hover:scale-110"
                       src={nextRace?.circuitImage}
                       loading="lazy"
                       width="800"
@@ -318,19 +318,6 @@ const App: React.FC = () => {
                       </span>
                     </div>
                     <div className="relative z-10 flex items-center gap-6">
-                      <a
-                        href={latestEpisode?.previewUrl}
-                        target="_blank"
-                        className="w-20 h-20 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl"
-                        aria-label="Play latest episode preview"
-                      >
-                        <span
-                          className="material-symbols-outlined text-4xl text-[#ff89ab]"
-                          aria-hidden="true"
-                        >
-                          play_arrow
-                        </span>
-                      </a>
                       <span className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
                         {formatDuration(latestEpisode?.trackTimeMillis)}
                       </span>
