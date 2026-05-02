@@ -248,7 +248,7 @@ const App: React.FC = () => {
                       </span>
                       <div className="h-1 flex-1 bg-[#acaab1]/20"></div>
                     </div>
-                    <h2 className="font-headline font-black text-5xl md:text-6xl lg:text-8xl xl:text-9xl uppercase tracking-tighter leading-none italic text-[#f8f5fd] break-words">
+                    <h2 className="font-headline font-black text-5xl md:text-5xl lg:text-7xl xl:text-8xl uppercase tracking-tighter leading-none italic text-[#f8f5fd] whitespace-nowrap">
                       {nextRace?.isLive ? "CURRENT:" : "DESTINATION:"}
                       <br />
                       <span className="text-[#00f4fe]">
@@ -440,7 +440,7 @@ const App: React.FC = () => {
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
           <div className="text-black font-black text-4xl md:text-6xl font-headline italic leading-none">
             CIRCUITOS
-            <br />& CHISME
+            <br />Y CHISME
           </div>
           <p className="font-headline font-black text-xs uppercase text-black/80">
             ©2026 CIRCUITOS Y CHISME
