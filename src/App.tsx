@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import EpisodeCoverArt from "./assets/episode_cover_art.png";
-import PodcastCoverArt from "./assets/podcast_cover_art.png";
+import EpisodeCoverArt from "./assets/episode_cover_art.webp";
+import PodcastCoverArt from "./assets/podcast_cover_art.webp";
 
 // --- Interfaces for TypeScript Strict Mode ---
 interface PodcastLinks {
@@ -195,6 +195,7 @@ const App: React.FC = () => {
             href={PODCAST_LINKS.spotify}
             target="_blank"
             className="hover:text-pink-400 hover:-rotate-2 transition-all"
+            aria-label="Listen on Spotify"
           >
             Spotify
           </a>
@@ -202,6 +203,7 @@ const App: React.FC = () => {
             href={PODCAST_LINKS.apple}
             target="_blank"
             className="hover:text-pink-400 hover:-rotate-2 transition-all"
+            aria-label="Listen on Apple Podcasts"
           >
             Apple Podcasts
           </a>
@@ -210,6 +212,7 @@ const App: React.FC = () => {
           href={PODCAST_LINKS.apple}
           target="_blank"
           className="bg-[#ff89ab] text-black font-headline font-black px-4 md:px-6 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all"
+          aria-label="Subscribe on Apple Podcasts"
         >
           SUBSCRIBE
         </a>
@@ -244,7 +247,7 @@ const App: React.FC = () => {
                   <div className="absolute -top-10 -right-10 bg-[#ff89ab] w-full h-full -rotate-3 z-0"></div>
                   <div className="relative z-10 border-4 border-[#f8f5fd] p-2 bg-[#0e0e13] rotate-2 group-hover:rotate-0 transition-transform duration-300">
                     <img
-                      alt="Hosts"
+                      alt="Circuitos y Chisme Podcast Hosts"
                       className="w-full h-[400px] md:h-[600px] object-cover filter contrast-125"
                       src={PodcastCoverArt}
                       fetchPriority="high"
@@ -300,7 +303,7 @@ const App: React.FC = () => {
                   </div>
                   <div className="w-full md:w-1/2 relative h-[300px] md:h-[400px] flex items-center justify-center bg-black/20">
                     <img
-                      alt={nextRace?.name || "Race Circuit"}
+                      alt={nextRace?.name ? `Circuit map of ${nextRace.name}` : "Formula 1 Race Circuit Map"}
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,244,254,0.3)] transition-all duration-500 hover:scale-110"
                       src={nextRace?.circuitImage}
                       loading="lazy"
@@ -325,7 +328,7 @@ const App: React.FC = () => {
                     <img
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       src={EpisodeCoverArt}
-                      alt="Latest Episode"
+                      alt="Latest Podcast Episode Cover Art"
                       loading="lazy"
                     />
                     <div className="relative z-10">
@@ -338,8 +341,9 @@ const App: React.FC = () => {
                         href={latestEpisode?.previewUrl}
                         target="_blank"
                         className="w-20 h-20 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl"
+                        aria-label="Play latest episode preview"
                       >
-                        <span className="material-symbols-outlined text-4xl text-[#ff89ab]">
+                        <span className="material-symbols-outlined text-4xl text-[#ff89ab]" aria-hidden="true">
                           play_arrow
                         </span>
                       </a>
@@ -361,9 +365,10 @@ const App: React.FC = () => {
                       className="bg-[#0e0e13] text-[#f8f5fd] p-6 font-headline font-black flex justify-between items-center hover:bg-[#00f4fe] hover:text-[#0e0e13] transition-colors group"
                       href={PODCAST_LINKS.spotify}
                       target="_blank"
+                      aria-label="Listen on Spotify"
                     >
                       LISTEN ON SPOTIFY{" "}
-                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">
+                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform" aria-hidden="true">
                         arrow_forward
                       </span>
                     </a>
@@ -371,9 +376,10 @@ const App: React.FC = () => {
                       className="bg-[#0e0e13] text-[#f8f5fd] p-6 font-headline font-black flex justify-between items-center hover:bg-[#00f4fe] hover:text-[#0e0e13] transition-colors group"
                       href={PODCAST_LINKS.apple}
                       target="_blank"
+                      aria-label="Listen on Apple Podcasts"
                     >
                       LISTEN ON APPLE{" "}
-                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">
+                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform" aria-hidden="true">
                         arrow_forward
                       </span>
                     </a>
@@ -389,8 +395,9 @@ const App: React.FC = () => {
                     href={PODCAST_LINKS.tiktok}
                     target="_blank"
                     className="col-span-1 md:col-span-3 bg-[#00f4fe] p-10 min-h-[400px] flex flex-col justify-end -rotate-1 relative group hover:rotate-0 transition-transform cursor-pointer shadow-[15px_15px_0px_0px_#ff89ab]"
+                    aria-label="Follow us on TikTok"
                   >
-                    <span className="material-symbols-outlined absolute top-10 right-10 text-8xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all">
+                    <span className="material-symbols-outlined absolute top-10 right-10 text-8xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all" aria-hidden="true">
                       video_library
                     </span>
                     <h5 className="font-headline font-black text-6xl md:text-8xl text-[#0e0e13] uppercase leading-none">
@@ -404,8 +411,9 @@ const App: React.FC = () => {
                     href={PODCAST_LINKS.instagram}
                     target="_blank"
                     className="col-span-1 md:col-span-2 bg-[#ff89ab] p-10 min-h-[400px] flex flex-col justify-end rotate-2 relative group hover:rotate-0 transition-transform cursor-pointer shadow-[15px_15px_0px_0px_#00f4fe]"
+                    aria-label="Follow us on Instagram"
                   >
-                    <span className="material-symbols-outlined absolute top-10 right-10 text-6xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all">
+                    <span className="material-symbols-outlined absolute top-10 right-10 text-6xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all" aria-hidden="true">
                       alternate_email
                     </span>
                     <h5 className="font-headline font-black text-4xl md:text-6xl text-[#0e0e13] uppercase leading-none">
