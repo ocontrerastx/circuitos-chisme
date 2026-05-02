@@ -5,6 +5,7 @@ import { NextRace } from "./components/NextRace/NextRace";
 import { PodcastEpisodes } from "./components/PodcastEpisodes/PodcastEpisodes";
 import { Socials } from "./components/Socials/Socials";
 import { Footer } from "./components/Footer/Footer";
+import styles from "./App.module.css";
 
 // --- Interfaces for TypeScript Strict Mode ---
 interface PodcastLinks {
@@ -53,8 +54,6 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
-
     const fetchRaceIntel = async () => {
       try {
         const response = await fetch(
@@ -134,10 +133,10 @@ const App: React.FC = () => {
   const latestEpisode = episodes[0];
 
   return (
-    <div className="min-h-screen">
+    <div className={styles.app}>
       <Nav setView={setView} podcastLinks={PODCAST_LINKS} />
 
-      <main className="pt-32">
+      <main className={styles.main}>
         {view === "home" ? (
           <>
             <Hero />
@@ -149,18 +148,18 @@ const App: React.FC = () => {
             <Socials podcastLinks={PODCAST_LINKS} />
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center py-40">
+          <div className={styles.emptyState}>
             {loading && (
-              <p className="text-[#00f4fe] animate-pulse">
+              <p className={styles.scanningText}>
                 Scanning the paddock...
               </p>
             )}
-            <p className="text-[#acaab1] font-headline">
+            <p className={styles.privateText}>
               The Paddock Archive is currently private.
             </p>
             <button
               onClick={() => setView("home")}
-              className="mt-4 text-[#00f4fe] underline font-headline uppercase"
+              className={styles.returnButton}
             >
               Return Home
             </button>
