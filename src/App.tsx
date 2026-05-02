@@ -62,35 +62,6 @@ const App: React.FC = () => {
   useEffect(() => {
     document.documentElement.classList.add("dark");
 
-    // Injecting Tailwind CDN
-    const s = document.createElement("script");
-    s.src = "https://cdn.tailwindcss.com";
-    document.head.appendChild(s);
-
-    const configScript = document.createElement("script");
-    configScript.innerHTML = `
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              primary: '#ff89ab',
-              secondary: '#00f4fe',
-              tertiary: '#c47fff',
-              'primary-dim': '#e30071',
-              'secondary-container': '#00696e',
-              'on-surface': '#f8f5fd',
-              'surface-container-highest': '#25252c',
-              'on-primary-fixed': '#000000',
-              'on-surface-variant': '#acaab1',
-              'surface-container': '#19191f',
-            }
-          }
-        }
-      }
-    `;
-    document.head.appendChild(configScript);
-
     // Fetch Live Race Intel
     const fetchRaceIntel = async () => {
       try {
@@ -222,9 +193,9 @@ const App: React.FC = () => {
         {view === "home" ? (
           <>
             <section className="relative min-h-[80vh] md:min-h-[921px] flex flex-col items-center justify-center px-6 overflow-hidden">
-              <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-                <div className="absolute top-10 -left-20 w-96 h-96 bg-[#ff89ab] rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-20 -right-20 w-80 h-80 bg-[#00f4fe] rounded-full blur-[100px]"></div>
+              <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="absolute top-10 -left-20 w-96 h-96 bg-[#ff89ab]/20 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-20 -right-20 w-80 h-80 bg-[#00f4fe]/20 rounded-full blur-[100px]"></div>
               </div>
               <div className="relative z-10 w-full max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-4">
                 <div className="md:col-span-7 flex flex-col justify-center">
@@ -252,6 +223,8 @@ const App: React.FC = () => {
                       src={PodcastCoverArt}
                       fetchPriority="high"
                       loading="eager"
+                      width="1000"
+                      height="1000"
                     />
                     <div className="absolute -bottom-6 -left-6 bg-[#00f4fe] text-[#0e0e13] font-headline font-black p-4 text-xl md:text-2xl -rotate-6 border-2 border-[#0e0e13] shadow-lg">
                       New Episodes Weekly!
@@ -267,7 +240,7 @@ const App: React.FC = () => {
                   <div className="flex-1 space-y-6">
                     <div className="flex gap-2 items-center">
                       <span
-                        className={`font-headline font-bold px-3 py-1 text-sm uppercase ${nextRace?.isLive ? "bg-green-500 text-black animate-pulse" : "bg-[#ff6e84] text-[#490013]"}`}
+                        className={`font-headline font-bold px-3 py-1 text-sm uppercase ${nextRace?.isLive ? "bg-green-500 text-black" : "bg-[#ff6e84] text-[#490013]"}`}
                       >
                         {nextRace?.isLive
                           ? "RACE WEEKEND ACTIVE"
@@ -303,10 +276,16 @@ const App: React.FC = () => {
                   </div>
                   <div className="w-full md:w-1/2 relative h-[300px] md:h-[400px] flex items-center justify-center bg-black/20">
                     <img
-                      alt={nextRace?.name ? `Circuit map of ${nextRace.name}` : "Formula 1 Race Circuit Map"}
+                      alt={
+                        nextRace?.name
+                          ? `Circuit map of ${nextRace.name}`
+                          : "Formula 1 Race Circuit Map"
+                      }
                       className="max-w-full max-h-full object-contain filter drop-shadow-[0_0_20px_rgba(0,244,254,0.3)] transition-all duration-500 hover:scale-110"
                       src={nextRace?.circuitImage}
                       loading="lazy"
+                      width="800"
+                      height="600"
                     />
                     <div className="absolute top-0 right-0 p-4 font-headline text-[#00f4fe] opacity-50 text-[10px] text-right">
                       STATUS: {nextRace?.isLive ? "LIVE" : "IDLE"}
@@ -330,6 +309,8 @@ const App: React.FC = () => {
                       src={EpisodeCoverArt}
                       alt="Latest Podcast Episode Cover Art"
                       loading="lazy"
+                      width="600"
+                      height="600"
                     />
                     <div className="relative z-10">
                       <span className="bg-[#0e0e13] text-[#ff89ab] font-headline font-black px-4 py-1 uppercase text-lg inline-block -rotate-2">
@@ -343,7 +324,10 @@ const App: React.FC = () => {
                         className="w-20 h-20 bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl"
                         aria-label="Play latest episode preview"
                       >
-                        <span className="material-symbols-outlined text-4xl text-[#ff89ab]" aria-hidden="true">
+                        <span
+                          className="material-symbols-outlined text-4xl text-[#ff89ab]"
+                          aria-hidden="true"
+                        >
                           play_arrow
                         </span>
                       </a>
@@ -368,7 +352,10 @@ const App: React.FC = () => {
                       aria-label="Listen on Spotify"
                     >
                       LISTEN ON SPOTIFY{" "}
-                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform" aria-hidden="true">
+                      <span
+                        className="material-symbols-outlined group-hover:translate-x-2 transition-transform"
+                        aria-hidden="true"
+                      >
                         arrow_forward
                       </span>
                     </a>
@@ -379,7 +366,10 @@ const App: React.FC = () => {
                       aria-label="Listen on Apple Podcasts"
                     >
                       LISTEN ON APPLE{" "}
-                      <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform" aria-hidden="true">
+                      <span
+                        className="material-symbols-outlined group-hover:translate-x-2 transition-transform"
+                        aria-hidden="true"
+                      >
                         arrow_forward
                       </span>
                     </a>
@@ -395,9 +385,11 @@ const App: React.FC = () => {
                     href={PODCAST_LINKS.tiktok}
                     target="_blank"
                     className="col-span-1 md:col-span-3 bg-[#00f4fe] p-10 min-h-[400px] flex flex-col justify-end -rotate-1 relative group hover:rotate-0 transition-transform cursor-pointer shadow-[15px_15px_0px_0px_#ff89ab]"
-                    aria-label="Follow us on TikTok"
                   >
-                    <span className="material-symbols-outlined absolute top-10 right-10 text-8xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all" aria-hidden="true">
+                    <span
+                      className="material-symbols-outlined absolute top-10 right-10 text-8xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all"
+                      aria-hidden="true"
+                    >
                       video_library
                     </span>
                     <h5 className="font-headline font-black text-6xl md:text-8xl text-[#0e0e13] uppercase leading-none">
@@ -411,9 +403,11 @@ const App: React.FC = () => {
                     href={PODCAST_LINKS.instagram}
                     target="_blank"
                     className="col-span-1 md:col-span-2 bg-[#ff89ab] p-10 min-h-[400px] flex flex-col justify-end rotate-2 relative group hover:rotate-0 transition-transform cursor-pointer shadow-[15px_15px_0px_0px_#00f4fe]"
-                    aria-label="Follow us on Instagram"
                   >
-                    <span className="material-symbols-outlined absolute top-10 right-10 text-6xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all" aria-hidden="true">
+                    <span
+                      className="material-symbols-outlined absolute top-10 right-10 text-6xl text-black/20 group-hover:scale-110 group-hover:text-black/40 transition-all"
+                      aria-hidden="true"
+                    >
                       alternate_email
                     </span>
                     <h5 className="font-headline font-black text-4xl md:text-6xl text-[#0e0e13] uppercase leading-none">
@@ -448,9 +442,12 @@ const App: React.FC = () => {
       </main>
 
       <footer className="w-full mt-20 border-t-8 border-black bg-pink-500 p-10 relative overflow-hidden min-h-[300px] flex flex-col justify-end">
-        <div className="absolute top-0 left-0 whitespace-nowrap opacity-10 select-none pointer-events-none">
+        <div
+          className="absolute top-0 left-0 whitespace-nowrap opacity-10 select-none pointer-events-none"
+          aria-hidden="true"
+        >
           <span className="font-headline font-black text-[10rem] md:text-[15rem] text-black uppercase leading-none">
-            UNDERGROUND UNDERGROUND
+            BOX BOX
           </span>
         </div>
         <div className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
@@ -458,8 +455,8 @@ const App: React.FC = () => {
             CIRCUITOS
             <br />& CHISME
           </div>
-          <p className="font-headline font-black text-xs uppercase text-black/60">
-            ©2024 THE PADDOCK UNDERGROUND
+          <p className="font-headline font-black text-xs uppercase text-black/80">
+            ©2026 CIRCUITOS Y CHISME
           </p>
         </div>
       </footer>
