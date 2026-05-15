@@ -87,8 +87,8 @@ const App: React.FC = () => {
             raceDay.setDate(startDate.getDate() + 2);
             setNextRace({
               name: meeting.meeting_name
-                .replace(/Grand Prix/gi, "")
                 .replace(/F1/gi, "")
+                .replace(/Grand Prix/gi, "GP")
                 .trim()
                 .toUpperCase(),
               location: meeting.location.toUpperCase(),
